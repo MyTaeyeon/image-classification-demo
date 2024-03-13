@@ -49,3 +49,8 @@ def train_model(net, dataloader_dict, criterior, optimizer, num_epochs):
         print(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_accuracy:.4f}")
 
     torch.save(net.state_dict(), save_path)
+
+def load_model(net, model_path):
+    load_weights = torch.load(model_path,  map_location={"cuda:0": "cpu"})
+    net.load_state_dict(load_weights)
+    return net
