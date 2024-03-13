@@ -1,3 +1,6 @@
+# Lưu ý
+Code đang được cài đặt mặc định vì vậy sẽ train trên cpu. 
+
 # Cài thư viện
 
     pip install torch torchvision pillow matplotlib 
