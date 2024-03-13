@@ -14,7 +14,7 @@ def make_datapath_list(phase='train'):
 
 def train_model(net, dataloader_dict, criterior, optimizer, num_epochs):
     for epoch in range(num_epochs):
-        print("Epoch {}/{}".format(epoch, num_epochs))
+        print("Epoch {}/{}".format(epoch, num_epochs-1))
         
         for phase in ["train", "val"]:
             if phase == "train":
@@ -39,14 +39,13 @@ def train_model(net, dataloader_dict, criterior, optimizer, num_epochs):
                         loss.backward()
                         optimizer.step()
                         
-                    epoch_loss += loss.item()*inputs.size(0)
-                    epoch_corrects += torch.sum(preds==labels.data)
-                    
+                epoch_loss += loss.item()*inputs.size(0)
+                epoch_corrects += torch.sum(preds==labels.data)
             
             epoch_loss = epoch_loss / len(dataloader_dict[phase].dataset)
             epoch_accuracy = epoch_corrects.double() / len(dataloader_dict[phase].dataset)
 
-        print(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_accuracy:.4f}")
+            print(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_accuracy:.4f}")
 
     torch.save(net.state_dict(), save_path)
 
